@@ -1,0 +1,34 @@
+{
+  "name": "shuffle-es6",
+  "version": "0.1.0",
+  "description": "Fisher-Yates shuffle with injectable random-number-generator as ES6 module",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "watch": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pobengtsson/shuffle-es6.git"
+  },
+  "keywords": [
+    "shuffle",
+    "shuffling",
+    "list",
+    "array",
+    "Fisher Yates",
+    "Durstenfeld",
+    "random",
+    "randomly",
+    "sort",
+    "sorted",
+    "sorting",
+    "inplace"
+  ],
+  "author": "Per-Olof Bengtsson",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
