@@ -1,6 +1,6 @@
 {
   "name": "shuffle-es6",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Fisher-Yates shuffle with injectable random-number-generator as ES6 module",
   "main": "index.js",
   "type": "module",
