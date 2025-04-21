@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
-    "watch": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch"
+    "build": "vite build",
+    "dev": "vite",
+    "test": "vitest --run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,6 @@
   "author": "Per-Olof Bengtsson",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^29.3.1"
+    "vitest": "^3.1.2"
   }
 }

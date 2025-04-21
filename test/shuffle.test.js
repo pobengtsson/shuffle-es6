@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals'
+import { describe, it, expect, vi } from 'vitest'
 import { shuffleInplace, shuffle } from '../index.js'
 
 function fac(n) {
@@ -39,7 +39,7 @@ describe('shuffleInplace', () => {
    describe('when shuffling with customer rng', ()=> {
       it('uses rng to shuffle', () => {
          const positionCount = 9
-         const prngMock = jest.fn(()=>Math.random())
+         const prngMock = vi.fn(()=>Math.random())
          shuffleInplace([...Array(positionCount).keys()], prngMock)
          expect(prngMock.mock.calls.length).toEqual(positionCount)
       })
@@ -79,7 +79,7 @@ describe('shuffle', () => {
    describe('when shuffling with customer rng', ()=> {
       it('uses rng to shuffle', () => {
          const positionCount = 9
-         const prngMock = jest.fn(()=>Math.random())
+         const prngMock = vi.fn(()=>Math.random())
          shuffle([...Array(positionCount).keys()], prngMock)
          expect(prngMock.mock.calls.length).toEqual(positionCount)
       })
