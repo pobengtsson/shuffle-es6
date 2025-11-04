@@ -1,6 +1,6 @@
 {
   "name": "shuffle-es6",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Fisher-Yates shuffle with injectable random-number-generator as ES6 module",
   "main": "index.js",
   "type": "module",
@@ -33,8 +33,8 @@
   "author": "Per-Olof Bengtsson",
   "license": "MIT",
   "devDependencies": {
-    "vitest": "^3.1.2",
-    "typescript": "^5.8.3",
-    "@types/node": "^22.14.1"
+    "vitest": "^4.0.7",
+    "typescript": "^5.9.3",
+    "@types/node": "^24.10.0"
   }
 }
