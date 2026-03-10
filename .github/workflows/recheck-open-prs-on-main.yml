@@ -1,0 +1,80 @@
+name: Recheck Open PRs On Main
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: recheck-open-prs-on-main
+  cancel-in-progress: true
+
+jobs:
+  collect-open-prs:
+    runs-on: ubuntu-latest
+    outputs:
+      pr_numbers: ${{ steps.collect.outputs.pr_numbers }}
+
+    steps:
+      - name: Collect open PRs targeting main
+        id: collect
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pulls = await github.paginate(github.rest.pulls.list, {
+              ...context.repo,
+              base: 'main',
+              per_page: 100,
+              state: 'open',
+            });
+
+            core.setOutput(
+              'pr_numbers',
+              JSON.stringify(pulls.map((pull) => pull.number)),
+            );
+
+  build-and-test:
+    needs: collect-open-prs
+    if: ${{ needs.collect-open-prs.outputs.pr_numbers != '[]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        pr_number: ${{ fromJson(needs.collect-open-prs.outputs.pr_numbers) }}
+
+    name: PR #${{ matrix.pr_number }}
+
+    steps:
+      - name: Check out PR merge ref
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ matrix.pr_number }}/merge
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: npm
+          node-version: 24.10.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
+
+  no-open-prs:
+    needs: collect-open-prs
+    if: ${{ needs.collect-open-prs.outputs.pr_numbers == '[]' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Nothing to validate
+        run: echo "No open pull requests targeting main."
